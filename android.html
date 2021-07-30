@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="es" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Moviles Menu Gastronomia</title>
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/font-awesome.min.css" rel="stylesheet">
+    <link href="css/animate.min.css" rel="stylesheet">
+    <link href="css/maestro.css" rel="stylesheet">
+    <link rel="shortcut icon" href="img/logogastro.png" />
+    <style>
+.btn {
+  position: relative;
+  margin-top: 2%;
+  border: 1px solid rgb(0 0 0 / 25%);
+  border-radius: 2px;
+  width: 40%;
+  margin-bottom: 2%;
+}
+body{
+    background-image: url(img/fondo.jpg);
+    background-position: center;
+    background-attachment: fixed;
+    background-size: cover;
+}
+#menu{
+  background: white;
+margin-bottom: 2%;
+}
+
+.cajon{
+    background:lightblue;
+    height:200px;
+    animation: expand 5s;
+}
+@keyframes alto{
+    0%{height:0px}
+    100%{height:200px}
+}
+
+.accordion-item {
+  background: transparent;
+  border-left: 0px;
+  border-right: 0px;
+  margin-bottom: 0.5em;
+}
+
+.accordion-item:first-of-type .accordion-button {
+    border-top-left-radius: calc(.25rem - 1px);
+    border-top-right-radius: calc(.25rem - 1px);
+}
+.accordion-button:not(.collapsed) {
+    color: #0c63e4;
+    background-color: #e7f1ff;
+    box-shadow: inset 0 -1px 0 rgb(0 0 0 / 13%);
+}
+[type=button]:not(:disabled), [type=reset]:not(:disabled), [type=submit]:not(:disabled), button:not(:disabled) {
+    cursor: pointer;
+}
+.accordion-button{
+  min-height: 180px;
+font-size: 2em;
+font-weight: 700;
+background: transparent;
+background-image: linear-gradient(45deg, white 15%, rgb(255 255 255 / 0%));
+}
+.accordion-button:not(.collapsed) {
+  color: white;
+    background-color: transparent;
+    box-shadow: inset 0 -1px 0 rgb(0 0 0 / 13%);
+    text-shadow: 1px 1px 6px black;
+    background-image: linear-gradient(45deg, #309130 15%, rgb(255 255 255 / 0%));
+}
+.modal-dialog {max-width: 98% !important;}
+.modal-body {padding: 0;}
+.modal-header{position: absolute; z-index: 10; width: 100%; background-image: linear-gradient(45deg, white , rgb(0 0 0 / 15%), white); box-shadow: 0px 3px 4px white;}
+.modal-title{font-weight: 900; color: green;}
+.card-title{font-size: 2.8em; font-family: Gabriely; font-weight: 700;}
+.botov{display: flex; justify-content: flex-start; flex-wrap: wrap;}
+.fa-share{margin-left: 5px;}
+</style>
+  </head>
+  <body>
+    <div class="container-xl">
+     <div id="menu">
+       <div id="cajon"  > <p id="cajj" style="display:none;" >Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+         Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit
+          esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. </p>
+          <div style="display: flex; justify-content: center;">
+          <div style="width: 100%; background: #b9b8b8; border-radius: 0 50% 0px 0px;"></div>
+          <div id="lines" class="btn" style="min-width: 145px; z-index: 105; background: white; margin-bottom: 0; border: 0px solid;"><img src="img/logogastro.png" /></div>
+          <div style="width: 100%; background: rgb(185 184 184); border-radius: 50% 0 0 0;"></div>
+          </div>
+        </div>
+
+      </div>
+    <!-- <div id="listado" class="row" style="padding-left: 2%; padding-right: 2%;"></div>-->
+
+
+
+ <div class="accordion" id="listado">
+ </div><!-- final de acordeon -->
+
+    </div>
+  </body>
+</html>
+<script src="js/jquery.js"></script>
+<script src="js/bootstrap.js"></script>
+<script type="text/javascript">
+ var  bandera=false; var indice=new Array(); var aux=new Array(); var aux1=new Array();
+  jQuery(document).ready(function($) {
+    tiempo();
+  $("#lines").click(function(){
+    $("#cajj").slideToggle('slow');
+  });
+
+ $("div[type='button']").on("click",function(){
+   alert("estoy aqui");
+   /*var a=$(this).attr("alt");
+   var b=$(this).attr("alt2");
+   alert(a+" "+b);*/
+ });
+
+});/*fin de cumento ready */
+
+function tiempo(){
+            $.post("util/colector.php",{accion:1},function(data){//carga de combobox
+              dato=JSON.parse(data);var i=0;
+              aux=dato[0];
+              constructor(aux);
+            });//fin del get
+  }//FIN FUNCION
+
+function constructor(dato){
+  $("#listado").html("");
+  $.each(dato, function( i, val ) {
+              $("#listado").append(val);
+         });
+}
+
+function imagen(a){
+  var b=$("#cuenta"+a).attr('alt');
+  var c=$("#cuenta"+a).attr('alt2');
+  alert(b+' '+c);
+}
+
+function menu(indice, h){
+    $("#menu").html("");
+    var i=0;
+    while (i < (h-1)) {$("#menu").append('<button class="btn btn-default filter-button" onclick="cambiador('+i+')" alt="'+i+'">'+indice[i].toUpperCase().substring(1)+'</button>');i++;}
+     $("#menu").append('<button id="asensor" class="btn btn-default filter-button animated infinite tada delay-2s" onclick="movimiento()"><i class="fa fa-angle-double-up" aria-hidden="true"></i></button>');
+    return true;
+  }
+
+</script>
