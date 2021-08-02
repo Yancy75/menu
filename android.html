@@ -23,13 +23,9 @@ body{
     background-attachment: fixed;
     background-size: cover;
 }
-#menu{
-  background: white;
-margin-bottom: 2%;
-}
+#menu{margin-bottom: 2%;}
 
 .cajon{
-    background:lightblue;
     height:200px;
     animation: expand 5s;
 }
@@ -59,10 +55,10 @@ margin-bottom: 2%;
 }
 .accordion-button{
   min-height: 180px;
-font-size: 2em;
-font-weight: 700;
-background: transparent;
-background-image: linear-gradient(45deg, white 15%, rgb(255 255 255 / 0%));
+  font-size: 2em;
+  font-weight: 700;
+  background: transparent;
+  background-image: linear-gradient(45deg, white 15%, rgb(255 255 255 / 0%));
 }
 .accordion-button:not(.collapsed) {
   color: white;
@@ -81,27 +77,29 @@ background-image: linear-gradient(45deg, white 15%, rgb(255 255 255 / 0%));
 </style>
   </head>
   <body>
-    <div class="container-xl">
-     <div id="menu">
-       <div id="cajon"  > <p id="cajj" style="display:none;" >Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-         Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit
-          esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. </p>
-          <div style="display: flex; justify-content: center;">
-          <div style="width: 100%; background: #b9b8b8; border-radius: 0 50% 0px 0px;"></div>
-          <div id="lines" class="btn" style="min-width: 145px; z-index: 105; background: white; margin-bottom: 0; border: 0px solid;"><img src="img/logogastro.png" /></div>
-          <div style="width: 100%; background: rgb(185 184 184); border-radius: 50% 0 0 0;"></div>
-          </div>
-        </div>
 
-      </div>
-    <!-- <div id="listado" class="row" style="padding-left: 2%; padding-right: 2%;"></div>-->
+    <div id="menu" style=" display: flex; justify-content: center;">
+      <div id="cajon" class="container-xl" style="position: absolute; z-index: 10; top: 0px;" >
+        <p id="cajj" style="display:none; margin-bottom: 0px; background: white; padding: 10px; border-radius: 0px 0px 10px 10px; box-shadow: 2px 2px 6px; border: 1px solid rgba(0, 0, 0, 0.6);" >
 
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
 
+          </p>
+         <div style="display: flex; justify-content: center;">
+          <!--  <div style="width: 100%; background: #b9b8b8; border-radius: 0 50% 0px 0px;"></div>-->
+            <div id="lines" class="btn" style="max-width: 80px; z-index: 105; background: white; margin-bottom: 0; border: 0px solid; margin-top: 0px; border-radius: 0 0 50% 50%; display: flex; justify-content: center;"><img src="img/logogastro.png" /></div>
+          <!--  <div style="width: 100%; background: rgb(185 184 184); border-radius: 50% 0 0 0;"></div>-->
+         </div>
+       </div>
 
- <div class="accordion" id="listado">
- </div><!-- final de acordeon -->
+     </div>
 
-    </div>
+    <div class="container-xl" style="margin-top: 9em;">
+       <div class="accordion" id="listado">
+       </div><!-- final de acordeon -->
+   </div>
   </body>
 </html>
 <script src="js/jquery.js"></script>

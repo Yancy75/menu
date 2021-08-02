@@ -103,11 +103,11 @@ function recaudador_card($dir, $ruta){
   $ruta1 =str_replace(' ', '', $ruta1);
 
   while ($archivo = readdir($directorio)){if(!is_dir($dir . '/' . $archivo) && $archivo!="." && $archivo!=".."){$imagen = "'".$ruta . "/" . $archivo."'";break;}}/* busca la primera imagen */
-
   $tarjeta = '<div class="accordion-item"><h2 class="accordion-header" id="'.$ruta1.'cabesa" style="background-image: url('.$imagen.');background-size: cover; background-position: center;"><button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#'.$ruta1.'" aria-expanded="false" aria-controls="'.$ruta1.'">';
   $tarjeta .= ''.$titulo.'</button></h2>';
   $tarjeta .='<div id="'.$ruta1.'" class="accordion-collapse collapse" aria-labelledby="'.$ruta1.'cabesa"><div class="accordion-body">';
   $tarjeta .='  <div class="accordion-body">';
+  $directorio = opendir($dir); // vuelvo a poner el directorio al inicio
   while ($archivo = readdir($directorio)){
    if(!is_dir($dir . '/' . $archivo) && $archivo!="." && $archivo!=".."){
    if (!file_exists('../'.$ruta.'/mini/'.$archivo)) {creador($archivo, $ruta, $carpeta);} /*enviamos el archivo despues de validar*/
