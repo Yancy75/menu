@@ -9,14 +9,7 @@
     <link href="css/maestro.css" rel="stylesheet">
     <link rel="shortcut icon" href="img/logogastro.png" />
     <style>
-.btn {
-  position: relative;
-  margin-top: 2%;
-  border: 1px solid rgb(0 0 0 / 25%);
-  border-radius: 2px;
-  width: 40%;
-  margin-bottom: 2%;
-}
+
 body{
     background-image: url(img/fondo.jpg);
     background-position: center;
@@ -74,22 +67,50 @@ body{
 .card-title{font-size: 2.8em; font-family: Gabriely; font-weight: 700;}
 .botov{display: flex; justify-content: flex-start; flex-wrap: wrap;}
 .fa-share{margin-left: 5px;}
+
+.btn-label {
+	position: relative;
+	left: -12px;
+	display: inline-block;
+	padding: 6px 12px;
+	background: rgba(0, 0, 0, 0.15);
+	border-radius: 3px 0 0 3px;
+}
+
+.btn-labeled {
+	padding-top: 0;
+	padding-bottom: 0;
+}
+.btn {
+  position: relative;
+  margin-top: 2%;
+  border: 1px solid rgb(0 0 0 / 25%);
+  border-radius: 2px;
+  margin-bottom: 10px;
+}
+
+ul{list-style: none;}
 </style>
   </head>
   <body>
 
     <div id="menu" style=" display: flex; justify-content: center;">
       <div id="cajon" class="container-xl" style="position: absolute; z-index: 10; top: 0px;" >
-        <p id="cajj" style="display:none; margin-bottom: 0px; background: white; padding: 10px; border-radius: 0px 0px 10px 10px; box-shadow: 2px 2px 6px; border: 1px solid rgba(0, 0, 0, 0.6);" >
+        <div id="cajj" style="display:none; margin-bottom: 0px; background: white; padding: 10px; border-radius: 0px 0px 10px 10px; box-shadow: 2px 2px 6px; border: 1px solid rgba(0, 0, 0, 0.6);" >
+           <h1>Menu</h1>
+           <hr>
+           <ul>
+             <li><h1>Cuenta</h1>
+               <ul id="entradam">
 
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+               </ul>
 
-          </p>
+             </li>
+            </ul>
+        </div>
          <div style="display: flex; justify-content: center;">
           <!--  <div style="width: 100%; background: #b9b8b8; border-radius: 0 50% 0px 0px;"></div>-->
-            <div id="lines" class="btn" style="max-width: 80px; z-index: 105; background: white; margin-bottom: 0; border: 0px solid; margin-top: 0px; border-radius: 0 0 50% 50%; display: flex; justify-content: center;"><img src="img/logogastro.png" /></div>
+            <div id="lines" class="btn" style="max-width: 80px; z-index: 105; margin-bottom: 0; border: 0px solid; margin-top: 0px; border-radius: 0 0 50% 50%; display: flex; justify-content: center;"><img src="img/logogastro.png" /></div>
           <!--  <div style="width: 100%; background: rgb(185 184 184); border-radius: 50% 0 0 0;"></div>-->
          </div>
        </div>
@@ -105,19 +126,12 @@ body{
 <script src="js/jquery.js"></script>
 <script src="js/bootstrap.js"></script>
 <script type="text/javascript">
- var  bandera=false; var indice=new Array(); var aux=new Array(); var aux1=new Array();
+   var indice=new Array(); var aux=new Array();
+   var consumo=new Array();
   jQuery(document).ready(function($) {
     tiempo();
-  $("#lines").click(function(){
-    $("#cajj").slideToggle('slow');
-  });
+  $("#lines").click(function(){$("#cajj").slideToggle('slow');});
 
- $("div[type='button']").on("click",function(){
-   alert("estoy aqui");
-   /*var a=$(this).attr("alt");
-   var b=$(this).attr("alt2");
-   alert(a+" "+b);*/
- });
 
 });/*fin de cumento ready */
 
@@ -129,17 +143,26 @@ function tiempo(){
             });//fin del get
   }//FIN FUNCION
 
-function constructor(dato){
-  $("#listado").html("");
-  $.each(dato, function( i, val ) {
-              $("#listado").append(val);
-         });
-}
+function constructor(dato){$("#listado").html("");$.each(dato, function( i, val ) {$("#listado").append(val);});}
 
 function imagen(a){
-  var b=$("#cuenta"+a).attr('alt');
-  var c=$("#cuenta"+a).attr('alt2');
-  alert(b+' '+c);
+  var b=$("#"+a).attr('alt');
+  var c=$("#"+a).attr('alt2');
+  var d=$("#"+a).attr('alt3');
+  if (!consumo[a]){
+    console.log("crealo");
+      consumo[a]=c;
+
+  }else{
+
+      console.log("suma le");
+      var suma = parseInt(consumo[a],10)+parseInt(c,10);
+      consumo[a] = suma;
+  }
+  console.log(consumo);
+
+  $("#entradam").append("<li><img src='"+d+"' /><div type='button' class='btn btn-labeled bton' onclick='accion(1)'><span class='btn-label'><i class='fa fa-times' aria-hidden='true'></i></span> Descontar</div> "+b+"</li>");
+
 }
 
 function menu(indice, h){
@@ -148,6 +171,10 @@ function menu(indice, h){
     while (i < (h-1)) {$("#menu").append('<button class="btn btn-default filter-button" onclick="cambiador('+i+')" alt="'+i+'">'+indice[i].toUpperCase().substring(1)+'</button>');i++;}
      $("#menu").append('<button id="asensor" class="btn btn-default filter-button animated infinite tada delay-2s" onclick="movimiento()"><i class="fa fa-angle-double-up" aria-hidden="true"></i></button>');
     return true;
+  }
+
+  function accion(a){
+
   }
 
 </script>
