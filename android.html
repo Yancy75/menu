@@ -87,8 +87,63 @@ body{
   border: 1px solid rgb(0 0 0 / 25%);
   border-radius: 2px;
   margin-bottom: 10px;
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
 }
-
+.fa-plus, .fa-minus {
+    font-size: xxx-large;
+    text-shadow: 1px 2px 3px black;
+}
+.menucab{
+  font-size: 2.5em;
+background-image: linear-gradient(to right, #309130, white, white, #309130);
+padding: 10px;
+text-align: center;
+padding-bottom: 20px;
+border-bottom: 1px solid black;
+text-transform: uppercase;
+font-weight: 800;
+border-bottom-style: dotted;
+}
+.menubo{
+  display: flex;
+    justify-content: center;
+    flex-direction: column;
+    padding: 0 10px 10px 10px;
+}
+.logoy{
+  width: 180px;
+  height: max-content;
+}
+.tablacab{
+    text-align: center;
+    text-transform: capitalize;
+    color: white;
+    font-size: x-large;
+    text-shadow: 0px 0px 3px black;
+    background-image: linear-gradient(to bottom right, #309130, yellow);
+    border-bottom: 1px solid black;
+}
+.tdy{
+    border: 1px dotted;
+    text-align: center;
+}
+.tabla{
+  border: 1px solid;
+}
+.try{
+  border: 1px dotted;
+}
+.try1{
+  text-align: right;
+  padding-right: 10px;
+}
+.pago{
+  border-top: 2px solid;
+}
+.logoh{max-width: 80px; z-index: 105; margin-bottom: 0; border: 0px solid; margin-top: 0px; border-radius: 0 0 50% 50%; display: flex; justify-content: center;}
+.precio{font-weight: 700; font-size: 3em; color: blue; margin: 10px;}
 ul{list-style: none;}
 </style>
   </head>
@@ -96,22 +151,20 @@ ul{list-style: none;}
 
     <div id="menu" style=" display: flex; justify-content: center;">
       <div id="cajon" class="container-xl" style="position: absolute; z-index: 10; top: 0px;" >
-        <div id="cajj" style="display:none; margin-bottom: 0px; background: white; padding: 10px; border-radius: 0px 0px 10px 10px; box-shadow: 2px 2px 6px; border: 1px solid rgba(0, 0, 0, 0.6);" >
-           <h1>Menu</h1>
-           <hr>
-           <ul>
-             <li><h1>Cuenta</h1>
-               <ul id="entradam">
-
-               </ul>
-
-             </li>
-            </ul>
+        <div id="cajj" style="display:none; margin-bottom: 0px; background: white;  border-radius: 0px 0px 10px 10px; box-shadow: 2px 2px 6px; border: 1px solid rgba(0, 0, 0, 0.6);" >
+           <h1 class="menucab" >Menú</h1>
+           <div class="menubo">
+           <h1>Cuenta</h1>
+             <table border="1" class="tabla">
+               <tr class="tablacab"><th colspan="2">Platos</th><th>Cant</th><th>costo</th><th>accion</th>
+               </tr>
+                <tbody id="entradam">
+                </tbody>
+             </table>
+           </div>
         </div>
          <div style="display: flex; justify-content: center;">
-          <!--  <div style="width: 100%; background: #b9b8b8; border-radius: 0 50% 0px 0px;"></div>-->
-            <div id="lines" class="btn" style="max-width: 80px; z-index: 105; margin-bottom: 0; border: 0px solid; margin-top: 0px; border-radius: 0 0 50% 50%; display: flex; justify-content: center;"><img src="img/logogastro.png" /></div>
-          <!--  <div style="width: 100%; background: rgb(185 184 184); border-radius: 50% 0 0 0;"></div>-->
+              <div id="lines" class="btn logoh"><img class="logoy" src="img/logogastro.png" /></div>
          </div>
        </div>
 
@@ -131,8 +184,6 @@ ul{list-style: none;}
   jQuery(document).ready(function($) {
     tiempo();
   $("#lines").click(function(){$("#cajj").slideToggle('slow');});
-
-
 });/*fin de cumento ready */
 
 function tiempo(){
@@ -146,35 +197,53 @@ function tiempo(){
 function constructor(dato){$("#listado").html("");$.each(dato, function( i, val ) {$("#listado").append(val);});}
 
 function imagen(a){
-  var b=$("#"+a).attr('alt');
-  var c=$("#"+a).attr('alt2');
-  var d=$("#"+a).attr('alt3');
-  if (!consumo[a]){
-    console.log("crealo");
-      consumo[a]=c;
+  var cuenta=new Array();  var suma=0;
+  cuenta[0]=a;
+  cuenta[1]=$("#"+a).attr('alt');
+  cuenta[2]=$("#"+a).attr('alt2');
+  cuenta[3]=$("#"+a).attr('alt3');
+  if (consumo[a]){cuenta[2] = parseInt(consumo[a][2],10)+parseInt(cuenta[2],10);}
+   consumo[a] = cuenta;
+   suma=constructor_menu();
+}
 
-  }else{
-
-      console.log("suma le");
-      var suma = parseInt(consumo[a],10)+parseInt(c,10);
-      consumo[a] = suma;
-  }
-  console.log(consumo);
-
-  $("#entradam").append("<li><img src='"+d+"' /><div type='button' class='btn btn-labeled bton' onclick='accion(1)'><span class='btn-label'><i class='fa fa-times' aria-hidden='true'></i></span> Descontar</div> "+b+"</li>");
-
+function constructor_menu(){
+  var subtotal = 0; var impuesto1=0; var total=0;
+  var paquete="";
+  $("#entradam").html("");
+    for (var plato in consumo){
+      var aux='"'+consumo[plato][0]+'"';var aux1=consumo[plato][2]/$("#"+consumo[plato][0]).attr('alt2');
+      paquete="<tr class='try'><td><img src='"+consumo[plato][3]+"' /></td><td><h1>"+consumo[plato][1]+" <p>"+$("#"+consumo[plato][0]).attr('alt2')+"</p></h1></td><td class='tdy'><h2>"+aux1+"</h2></td>";
+      paquete+="<td class='tdy'><h2>"+consumo[plato][2]+"</h2></td><td class='tdy'><button type='button' class='btn btn-danger' alt='"+aux1+"' onclick='accion("+aux+")'>";
+      paquete+="<i class='fa fa-minus' aria-hidden='true'></i></button></td></tr>"
+      $("#entradam").append(paquete);
+       total = subtotal = subtotal+ parseInt(consumo[plato][2],10);}/* construyo y calculo los totales */
+         impuesto1 = (subtotal*18)/100;
+         total = total + impuesto1;
+       $("#entradam").append("<tr><td colspan='3' class='try1'><h2>Sub Total:</h2></td><td class='pago'><h1>"+subtotal+"</h1></td></tr>");
+       $("#entradam").append("<tr><td colspan='3' class='try1'><h2>Itbis 18%:</h2></td><td class='pago'><h1>"+impuesto1+"</h1></td></tr>");
+         impuesto1 = (subtotal*10)/100;
+         total = total + impuesto1;
+       $("#entradam").append("<tr><td colspan='3' class='try1'><h2>Propina legal 10%:</h2></td><td class='pago'><h1>"+impuesto1+"</h1></td></tr>");
+       $("#entradam").append("<tr><td colspan='3' class='try1'><h2>Total:</h2></td><td class='pago' colspan='2'><h1>"+total+" RD$</h1></td></tr>");
+     return true;
 }
 
 function menu(indice, h){
-    $("#menu").html("");
-    var i=0;
+    $("#menu").html(""); var i=0;
     while (i < (h-1)) {$("#menu").append('<button class="btn btn-default filter-button" onclick="cambiador('+i+')" alt="'+i+'">'+indice[i].toUpperCase().substring(1)+'</button>');i++;}
      $("#menu").append('<button id="asensor" class="btn btn-default filter-button animated infinite tada delay-2s" onclick="movimiento()"><i class="fa fa-angle-double-up" aria-hidden="true"></i></button>');
     return true;
   }
 
   function accion(a){
-
+    var aux=$("#"+a).attr('alt2');
+    var ato=new Array();
+    if(consumo[a][2] == aux){
+        for (var plato in consumo){if(plato != a){ato[plato]=consumo[plato];}}/* creamos un array de auxilio y reconstruimos el array*/
+        consumo=ato;
+    }else{consumo[a][2] = consumo[a][2] - aux;}/* restamos un valor solamente  */
+    constructor_menu();
   }
 
 </script>
